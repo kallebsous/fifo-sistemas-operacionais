@@ -1,0 +1,224 @@
+/* Contêiner do diagrama */
+.diagram-container {
+    position: relative;
+    width: 800px;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+    border-radius: 10px;
+}
+
+/* Círculos dos estados */
+.state-circle {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 3px solid #FF4C4C;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: #333;
+    font-size: 0.9em;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.state-circle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.state-circle h3 {
+    margin-bottom: 10px;
+    font-size: 1.3em;
+    color: #FF4C4C;
+    font-weight: bold;
+}
+
+.process-list {
+    max-height: 80px;
+    overflow-y: auto;
+    width: 100%;
+    padding: 0 10px;
+}
+
+.process-item {
+    margin: 5px 0;
+    font-size: 0.9em;
+    color: #333;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+.process-item.empty {
+    color: #888;
+    font-style: italic;
+}
+
+/* Animação de fade-in para processos */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(1px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Posicionamento dos círculos */
+.execution {
+    top: 10px;
+}
+
+.waiting {
+    bottom: 20px;
+    left: 100px;
+}
+
+.ready {
+    bottom: 20px;
+    right: 100px;
+}
+
+/* Estilo das setas */
+.arrow {
+    position: absolute;
+    background: none;
+    border: none;
+}
+
+.arrow::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: #ffff;
+    transition: background 0.3s ease; /* Transição suave para a cor */
+}
+
+.arrow::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid #ffff;
+    border-right: 2px solid #ffff;
+    transform: rotate(45deg);
+    transition: border-color 0.3s ease; /* Transição suave para a cor da ponta */
+}
+
+/* Seta ativa (branca durante a transição) */
+.arrow.active::before {
+    background: white;
+}
+
+.arrow.active::after {
+    border-top-color: white;
+    border-right-color: white;
+}
+
+/* Seta de "Execução" para "Espera" */
+.execution-to-waiting {
+    width: 180px;
+    height: 2px;
+    top: 17rem;
+    left: 180px;
+    transform: rotate(-45deg);
+}
+
+.execution-to-waiting::before {
+    width: 100%;
+}
+
+.execution-to-waiting::after {
+    right: 0;
+    top: -4px;
+}
+
+/* Seta de "Espera" para "Pronto" */
+.waiting-to-ready {
+    width: 180px;
+    height: 2px;
+    left: 19rem;
+    bottom: 5rem;
+    transform: rotate(0deg);
+}
+
+.waiting-to-ready::before {
+    width: 100%;
+}
+
+.waiting-to-ready::after {
+    right: 0;
+    top: -4px;
+}
+
+/* Seta de "Pronto" para "Execução" */
+.ready-to-execution {
+    width: 180px;
+    height: 2px;
+    top: 17rem;
+    right: 10rem;
+    transform: rotate(50deg);
+}
+
+.ready-to-execution::before {
+    width: 100%;
+}
+
+.ready-to-execution::after {
+    right: 0;
+    top: -4px;
+}
+
+/* Seta de "Execução" para "Pronto" (curva) */
+.execution-to-ready {
+    width: 180px; /* Distância ajustada para tocar as bordas */
+    height: 2px;
+    top: 18rem; /* Borda inferior do círculo "Execução" */
+    right: 14rem; /* Borda esquerda do círculo "Pronto" */
+    transform: rotate(-130deg);
+}
+
+.execution-to-ready::before {
+    width: 100%;
+    background: #ffff;
+    transition: background 0.3s ease;
+}
+
+.execution-to-ready::after {
+    right: 0;
+    top: -4px;
+}
+/* Seta curva ativa (branca durante a transição) */
+.execution-to-ready.active {
+    border-color: white;
+}
+
+/* Ajustes para dispositivos móveis */
+@media (max-width: 768px) {
+    .diagram-container {
+        height: 600px;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .state-circle {
+        position: static;
+        transform: none;
+        margin: 20px 0;
+    }
+
+    .arrow {
+        display: none;
+    }
+}
