@@ -197,6 +197,12 @@ th, td {
     text-align: center;
     width: 100%;
   }
+  .logo{
+    width: 100px;
+  }
+  h1{
+    font-size: 1.8em;
+  }
 
   label {
     display: block;
